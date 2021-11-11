@@ -15,7 +15,6 @@
         "polyfills": "apps/max-bucket-gallery/src/polyfills.ts",
         "tsConfig": "apps/max-bucket-gallery/tsconfig.app.json",
         "assets": [
-          "apps/max-bucket-gallery/src/favicon.ico",
           "apps/max-bucket-gallery/src/assets"
         ],
         "styles": ["apps/max-bucket-gallery/src/styles.css"],
