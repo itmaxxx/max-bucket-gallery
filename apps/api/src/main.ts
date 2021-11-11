@@ -1,12 +1,25 @@
-import * as express from 'express';
-import { Message } from '@max-bucket-gallery/api-interfaces';
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 const app = express();
 
-const greeting: Message = { message: 'Welcome to api!' };
+dotenv.config();
+
+const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB } =
+  process.env;
+
+try {
+  const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+  mongoose.connect(url).then(async () => {
+    console.log('MongoDB is connected');
+  });
+} catch (err) {
+  console.error(err);
+}
 
 app.get('/api', (req, res) => {
-  res.send(greeting);
+  res.send({ message: 'Hello' });
 });
 
 const port = process.env.port || 3333;
