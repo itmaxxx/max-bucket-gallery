@@ -1,5 +1,5 @@
 import { prop, Ref } from '@typegoose/typegoose';
-import { User } from '@max-bucket-gallery/api-interfaces';
+import { User } from './User';
 import { Types } from 'mongoose';
 
 export class Image {
@@ -14,7 +14,7 @@ export class Image {
   public user: Ref<User>;
 
   @prop({ type: String })
-  public imageId: string;
+  public imageId?: string;
 
   @prop({ type: String })
   public originalImage?: string;

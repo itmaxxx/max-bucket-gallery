@@ -42,8 +42,7 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "max-bucket-gallery:build",
-        "hmr": true,
-        "proxyConfig": "apps/max-bucket-gallery/proxy.conf.json"
+        "hmr": true
       },
       "configurations": {
         "production": {
