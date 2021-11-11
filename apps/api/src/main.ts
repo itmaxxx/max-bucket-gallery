@@ -9,6 +9,7 @@ import { UserModel } from './models';
 import { createJwt } from './utils/jwt';
 import { RequestWithUser } from './types';
 import { computeSHA256 } from './utils/computeSHA256';
+import { isAuthorized } from './middlewares/isAuthorized';
 
 dotenv.config();
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB } =
@@ -81,7 +82,7 @@ app.get(
   (req: RequestWithUser, res) => {
     const jwt = createJwt(req.user._id);
 
-    return res.redirect(`http://localhost:4200/success?token=${jwt}`);
+    return res.redirect(process.env.NX_FRONTEND_URL + `/auth/success?token=${jwt}`);
   }
 );
 
@@ -96,7 +97,13 @@ try {
 }
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Hello' });
+  return res.send({ message: 'Hello' });
+});
+
+app.get('/api/private', isAuthorized, (req, res) => {
+  const msg: Message = { message: 'You are authorized' };
+
+  return res.send(msg);
 });
 
 const port = process.env.port || 3333;

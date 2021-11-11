@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from '@max-bucket-gallery/api-interfaces';
+import React from 'react';
 import { Container } from '@mui/material';
+import { Route, Routes } from 'react-router-dom';
+import { AuthSuccess } from './components/Auth/AuthSuccess';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
-
-  useEffect(() => {
-    fetch(process.env.NX_BACKEND_URL + '/api')
-      .then((r) => r.json())
-      .then(setMessage);
-  }, []);
-
   return (
-    <Container>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to max-bucket-gallery!</h1>
-      </div>
-      <div>{m.message}</div>
-      <a href={`${process.env.NX_BACKEND_URL}/api/auth/google`}>Sign in with google</a>
-    </Container>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Container>
+            <a href={`${process.env.NX_BACKEND_URL}/api/auth/google`}>
+              Sign in with google
+            </a>
+          </Container>
+        }
+      />
+      <Route path="/auth/success" element={<AuthSuccess />} />
+    </Routes>
   );
 };
 
