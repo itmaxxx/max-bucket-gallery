@@ -1,0 +1,29 @@
+{
+  "root": "apps/max-bucket-gallery-e2e",
+  "sourceRoot": "apps/max-bucket-gallery-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/max-bucket-gallery-e2e/cypress.json",
+        "devServerTarget": "max-bucket-gallery:serve",
+        "tsConfig": "apps/max-bucket-gallery-e2e/tsconfig.json"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "max-bucket-gallery:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/max-bucket-gallery-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["max-bucket-gallery"]
+}
