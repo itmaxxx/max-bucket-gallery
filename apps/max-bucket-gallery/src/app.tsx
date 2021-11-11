@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Message } from '@max-bucket-gallery/api-interfaces';
+import { Container } from '@mui/material';
 
 export const App = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -11,13 +12,13 @@ export const App = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       <div style={{ textAlign: 'center' }}>
         <h1>Welcome to max-bucket-gallery!</h1>
       </div>
       <div>{m.message}</div>
       <a href={`${process.env.NX_BACKEND_URL}/api/auth/google`}>Sign in with google</a>
-    </>
+    </Container>
   );
 };
 

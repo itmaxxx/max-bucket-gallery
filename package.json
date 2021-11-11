@@ -11,6 +11,10 @@
   },
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.1.0",
+    "@mui/material": "^5.1.0",
     "@typegoose/typegoose": "^9.2.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
