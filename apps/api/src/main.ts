@@ -7,6 +7,8 @@ import { Message } from '@max-bucket-gallery/api-interfaces';
 import { isAuthorized } from './middlewares/isAuthorized';
 import authRouter from './routes/authRouter';
 import userRouter from './routes/userRouter';
+import imagesRouter from './routes/imagesRouter';
+import formidableMiddleware from 'express-formidable';
 
 dotenv.config();
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB } =
@@ -14,7 +16,7 @@ const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB } =
 
 try {
   const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
-  console.log(url);
+  // console.log(url);
   mongoose.connect(url).then(async () => {
     console.log('MongoDB is connected');
   });
@@ -25,15 +27,17 @@ try {
 const app = express();
 app.use(
   cors({
-    origin: 'http://localhost:4200',
+    origin: process.env.NX_FRONTEND_URL,
     credentials: true,
   })
 );
 app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(formidableMiddleware());
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/images', imagesRouter);
 
 app.get('/api', (req, res) => {
   return res.send({ message: 'Hello' });
