@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, TextField } from '@mui/material';
 
-const LoginFormContainer = () => {
+const LoginForm = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -41,4 +41,4 @@ const LoginFormContainer = () => {
   );
 };
 
-export default LoginFormContainer;
+export default LoginForm;
