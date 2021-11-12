@@ -24,7 +24,7 @@ export class User {
     maxlength: 128,
     minlength: 4,
   })
-  public email!: string;
+  public email: string;
 
   @prop({ type: String, select: false })
   public hashedPassword?: string;
@@ -41,9 +41,9 @@ export class User {
   @prop({ type: String, select: false })
   public publicKey?: string;
 
-  @prop({ type: Date, default: Date.now })
+  @prop({ type: Date, default: Date.now, select: false })
   public createdAt?: Date;
 
-  @prop({ type: Date, default: null })
+  @prop({ type: Date, default: null, select: false })
   public deletedAt?: Date;
 }

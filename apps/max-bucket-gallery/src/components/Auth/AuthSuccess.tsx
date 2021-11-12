@@ -1,37 +1,33 @@
 import { useQuery } from '../../hooks/useQuery';
-import { request } from '../../utils/request';
-import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { userLoginWithJwt } from '../../store/actions/user';
+import { Navigate } from 'react-router-dom';
 
 export const AuthSuccess = () => {
+  const dispatch = useDispatch();
   const query = useQuery();
 
-  const handleQuery = async () => {
-    const result = await request(
-      process.env.NX_BACKEND_URL + '/api/private',
-      'GET',
-      null,
-      {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${query.get('token')}`,
-      }
-    );
+  useEffect(() => {
+    const token: string = query.get('token') || '';
 
-    console.log({ result });
+    if (token && token.length) {
 
-    alert(result.message);
-  };
+      console.log(token);
+
+      dispatch(userLoginWithJwt(token));
+    }
+  }, [query]);
 
   return (
     <div>
       {query.get('token') ? (
         <div>
-          Authorized
-          <Button variant="contained" onClick={handleQuery}>
-            test
-          </Button>
+          Logged in successfully
+          <Navigate to="/dashboard" />
         </div>
       ) : (
-        'Not authorized'
+        'Something went wrong'
       )}
     </div>
   );
