@@ -11,7 +11,7 @@ import { Typography } from '@mui/material';
 export const App = () => {
   const dispatch = useDispatch();
   const loggedIn: boolean = useSelector((state: RootState) => {
-    return state.user.isLogined || false;
+    return state.user.loggedIn || false;
   });
 
   useEffect(() => {

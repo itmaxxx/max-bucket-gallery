@@ -13,7 +13,7 @@ const token = localStorage.getItem('token');
 
 const initialState: UserState = {
   user: null,
-  isLogined: token ? true : false,
+  loggedIn: token ? true : false,
 };
 
 export const userReducer = (
@@ -24,29 +24,29 @@ export const userReducer = (
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        isLogined: true,
+        loggedIn: true,
         user: action.payload.user || null,
       };
     case USER_LOGIN_FAIL:
       return {
         ...state,
-        isLogined: false,
+        loggedIn: false,
         user: null,
       };
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        isLogined: false,
+        loggedIn: false,
       };
     case USER_REGISTER_FAIL:
       return {
         ...state,
-        isLogined: false,
+        loggedIn: false,
       };
     case USER_LOGOUT:
       return {
         ...state,
-        isLogined: false,
+        loggedIn: false,
         user: null,
       };
     case USER_UPDATE_SUCCESS:

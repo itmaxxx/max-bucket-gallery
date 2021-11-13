@@ -4,14 +4,14 @@ export interface RootState {
   user: UserState;
 }
 
-// Auth
+// User state
 
 export interface UserState {
   user: User | null;
-  isLogined: boolean;
+  loggedIn: boolean;
 }
 
 export interface UserAction {
   type: string;
-  payload: { user?: User; isLogined?: boolean; };
+  payload: { user?: User; loggedIn?: boolean; };
 }
