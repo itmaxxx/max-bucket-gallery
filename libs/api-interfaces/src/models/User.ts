@@ -35,12 +35,6 @@ export class User {
   })
   public profilePicture?: string;
 
-  @prop({ type: String, select: false })
-  public secretKey?: string;
-
-  @prop({ type: String, select: false })
-  public publicKey?: string;
-
   @prop({ type: Date, default: Date.now, select: false })
   public createdAt?: Date;
 
