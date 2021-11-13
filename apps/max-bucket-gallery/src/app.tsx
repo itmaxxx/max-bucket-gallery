@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './store/types';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import { userLoginWithJwt } from './store/actions/user';
+import { Typography } from '@mui/material';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLogined: boolean = useSelector((state: RootState) => {
+  const loggedIn: boolean = useSelector((state: RootState) => {
     return state.user.isLogined || false;
   });
 
@@ -21,21 +22,24 @@ export const App = () => {
     }
   }, []);
 
+  if (!loggedIn) {
+    return (
+      <Routes>
+        <Route path="/auth/success" element={<AuthSuccess />} />
+        <Route
+          path="/auth/fail"
+          element={<Typography>Failed to login</Typography>}
+        />
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route path="*" element={<Navigate to="/auth/login" />} />
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
-      <Route path="/auth/success" element={<AuthSuccess />} />
-      <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
-      <Route
-        path="*"
-        element={
-          isLogined ? (
-            <Navigate to="/dashboard" />
-          ) : (
-            <Navigate to="/auth/login" />
-          )
-        }
-      />
+      <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>
   );
 };
