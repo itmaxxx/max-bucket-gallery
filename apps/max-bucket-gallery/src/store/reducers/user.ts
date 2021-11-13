@@ -25,7 +25,7 @@ export const userReducer = (
       return {
         ...state,
         loggedIn: true,
-        user: action.payload.user || null,
+        user: action.payload?.user || null,
       };
     case USER_LOGIN_FAIL:
       return {
@@ -52,7 +52,7 @@ export const userReducer = (
     case USER_UPDATE_SUCCESS:
       return {
         ...state,
-        user: action.payload.user || null,
+        user: action.payload?.user || null,
       };
     case USER_UPDATE_FAIL:
       return {
