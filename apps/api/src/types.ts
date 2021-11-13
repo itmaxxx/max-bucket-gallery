@@ -8,3 +8,9 @@ export interface RequestWithUser extends Request {
 export interface RequestWithUserAndFiles extends RequestWithUser {
   files: any;
 }
+
+export interface ApiImageUploadResponse {
+  message?: string;
+  imageId?: string;
+  link?: string
+}

@@ -1,16 +1,17 @@
-import { Router } from 'express';
+import { Router, Response } from 'express';
+import ImagesController from '../controllers/imagesController';
 import { isAuthorized } from '../middlewares/isAuthorized';
-import { RequestWithUser, RequestWithUserAndFiles } from '../types';
-import { uploadImage } from '../controllers/imagesController';
+import { RequestWithUserAndFiles } from '../types';
 
 const router = Router();
+const imagesController = new ImagesController();
 
-router.get('/', isAuthorized, async (req: RequestWithUser, res) => {
-  // await getCurrentUser(req, res);
-});
-
-router.post('/', isAuthorized, async (req: RequestWithUserAndFiles, res) => {
-  await uploadImage(req, res);
-});
+router.post(
+  '/',
+  isAuthorized,
+  async (req: RequestWithUserAndFiles, res: Response) => {
+    await imagesController.uploadImage(req, res);
+  }
+);
 
 export default router;
