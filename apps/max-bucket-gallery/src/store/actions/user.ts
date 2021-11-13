@@ -8,12 +8,13 @@ import {
   USER_UPDATE_SUCCESS,
 } from '../types/user';
 import { request } from '../../utils/request';
+import { UserDispatch } from '../types';
 
 const BACKEND_URL = process.env.NX_BACKEND_URL;
 
 export function userLogin(email: string, password: string) {
-  return async (dispatch: any) => {
-    const result = await request(BACKEND_URL + '/api/auth/signIn', 'POST', {
+  return async (dispatch: UserDispatch) => {
+    const result = await request(BACKEND_URL + '/api/auth/sign-in', 'POST', {
       email,
       password,
     });
@@ -33,11 +34,10 @@ export function userLogin(email: string, password: string) {
       {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${result.jwt}`,
-      },
+      }
     );
 
     if (resultUserInfo.error) {
-      console.log(`USER USERS/ME EX   `, resultUserInfo);
       dispatch({
         type: USER_LOGIN_FAIL,
       });
@@ -49,22 +49,19 @@ export function userLogin(email: string, password: string) {
       type: USER_LOGIN_SUCCESS,
       payload: {
         user: {
-          jwt: result.jwt,
           _id: resultUserInfo._id,
-          email,
-          name: resultUserInfo.name,
-          phone: resultUserInfo.phone,
-          description: resultUserInfo.description,
+          email: resultUserInfo.email,
+          fullName: resultUserInfo.fullName,
         },
       },
     });
 
-    localStorage.setItem("token", result.jwt);
+    localStorage.setItem('token', result.jwt);
   };
 }
 
 export function userLoginWithJwt(jwt: string) {
-  return async (dispatch: any) => {
+  return async (dispatch: UserDispatch) => {
     const resultUserInfo = await request(
       BACKEND_URL + '/api/users/me',
       'GET',
@@ -72,7 +69,7 @@ export function userLoginWithJwt(jwt: string) {
       {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`,
-      },
+      }
     );
 
     if (resultUserInfo) {
@@ -89,16 +86,14 @@ export function userLoginWithJwt(jwt: string) {
 }
 
 export function userRegister(
-  name: string,
+  fullName: string,
   email: string,
-  phone: string,
-  password: string,
+  password: string
 ) {
-  return async (dispatch: any) => {
-    const result = await request(BACKEND_URL + '/api/auth/signUp', 'POST', {
-      name,
+  return async (dispatch: UserDispatch) => {
+    const result = await request(BACKEND_URL + '/api/auth/sign-up', 'POST', {
+      fullName,
       email,
-      phone,
       password,
     });
 
@@ -117,11 +112,10 @@ export function userRegister(
       {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${result.jwt}`,
-      },
+      }
     );
 
     if (resultUserInfo.error) {
-      console.log(`USER USERS/ME EX   `, resultUserInfo);
       dispatch({
         type: USER_REGISTER_FAIL,
       });
@@ -133,22 +127,19 @@ export function userRegister(
       type: USER_REGISTER_SUCCESS,
       payload: {
         user: {
-          jwt: result.jwt,
           email: resultUserInfo.email,
-          name: resultUserInfo.name,
-          phone: resultUserInfo.phone,
-          description: resultUserInfo.description,
+          fullName: resultUserInfo.fullName,
         },
       },
     });
 
-    localStorage.setItem("token", JSON.stringify(result.jwt));
+    localStorage.setItem('token', JSON.stringify(result.jwt));
   };
 }
 
 export function userLogout() {
   return async (dispatch: any) => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
 
     dispatch({
       type: USER_LOGOUT,

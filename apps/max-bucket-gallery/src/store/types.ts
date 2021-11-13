@@ -13,5 +13,7 @@ export interface UserState {
 
 export interface UserAction {
   type: string;
-  payload: { user?: User; loggedIn?: boolean; };
+  payload?: { user?: User; loggedIn?: boolean };
 }
+
+export type UserDispatch = (dispatch: UserAction) => UserAction;
