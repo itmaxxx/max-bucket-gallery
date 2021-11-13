@@ -9,6 +9,7 @@ import authRouter from './routes/authRouter';
 import userRouter from './routes/userRouter';
 import imagesRouter from './routes/imagesRouter';
 import formidableMiddleware from 'express-formidable';
+import setUpGoogleStrategy from './strategies/googleStrategy';
 
 dotenv.config();
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB } =
@@ -32,6 +33,7 @@ app.use(
   })
 );
 app.use(passport.initialize());
+setUpGoogleStrategy();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(formidableMiddleware());
