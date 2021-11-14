@@ -22,6 +22,6 @@ export class Image {
   @prop({ type: Date, default: Date.now })
   public createdAt?: Date;
 
-  @prop({ type: Date, default: null })
+  @prop({ type: Date, default: null, select: false })
   public deletedAt?: Date;
 }

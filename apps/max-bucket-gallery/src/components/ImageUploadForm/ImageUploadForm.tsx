@@ -4,6 +4,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 const ImageUploadForm = () => {
   const [open, setOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,23 +22,56 @@ const ImageUploadForm = () => {
     const result = await response.json();
 
     setOpen(false);
+    setSelectedImage('');
 
     console.log(result);
   };
 
+  // Not working (image not selected)
+  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event?.target?.files) {
+      setSelectedImage(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit}>
+    <Box
+      component="form"
+      noValidate
+      onSubmit={handleSubmit}
+      sx={{ display: 'flex', flexDirection: 'column' }}
+    >
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Button variant="text" component="label" fullWidth disableElevation>
-        <CloudUploadIcon color="inherit" sx={{ fontSize: 100 }} />
-        <span style={{ marginLeft: '16px' }}>Select image</span>
-        <input type="file" name="image" hidden required />
-      </Button>
+      {selectedImage ? (
+        <img
+          style={{
+            width: '400px',
+            maxWidth: '400px',
+            maxHeight: '400px',
+            cursor: 'not-allowed',
+          }}
+          src={selectedImage}
+          onClick={() => setSelectedImage('')}
+        />
+      ) : (
+        <Button variant="text" component="label" fullWidth disableElevation>
+          <CloudUploadIcon color="inherit" sx={{ fontSize: 100 }} />
+          <span style={{ marginLeft: '16px' }}>Select image</span>
+          <input
+            type="file"
+            name="image"
+            // onChange={handleImageSelect}
+            // value={selectedImage}
+            hidden
+            required
+          />
+        </Button>
+      )}
       <Button
         type="submit"
         fullWidth
