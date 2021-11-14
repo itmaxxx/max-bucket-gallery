@@ -9,6 +9,8 @@ import { applyMiddleware, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { rootReducer } from './store/reducers/root';
 import { Provider } from 'react-redux';
+import NavBar from './components/NavBar/NavBar';
+import React from 'react';
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
@@ -19,6 +21,7 @@ ReactDOM.render(
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <NavBar />
         <App />
       </ThemeProvider>
     </BrowserRouter>

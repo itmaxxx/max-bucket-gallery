@@ -31,6 +31,7 @@ export const App = () => {
           element={<Typography>Failed to login</Typography>}
         />
         <Route path="/auth/login" element={<LoginPage />} />
+        <Route path="/auth/sign-up" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/auth/login" />} />
       </Routes>
     );

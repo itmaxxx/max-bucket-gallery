@@ -1,27 +1,19 @@
 import { Container, Grid, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/types';
 import ImageUploadForm from '../../components/ImageUploadForm/ImageUploadForm';
-import LogoutBtn from '../../components/LogoutBtn/LogoutBtn';
 
 const DashboardPage = () => {
-  const user = useSelector((state: RootState) => {
-    return state.user.user;
-  });
-
   return (
-    <Container component="main" maxWidth="lg">
+    <Container component="main" maxWidth="lg" sx={{ mt: 2 }}>
       <Grid item xs={12}>
-        <Typography variant="h1">Dashboard</Typography>
+        <Typography variant="h4">Dashboard</Typography>
       </Grid>
-      <Grid item xs={12}>
-        {user?.fullName}
-        <LogoutBtn />
-      </Grid>
-      <Grid container alignItems="center" direction="column">
-        <Grid item>
-          <ImageUploadForm />
-        </Grid>
+      <Grid
+        container
+        alignItems="center"
+        direction="column"
+        sx={{ mt: 3, border: '5px dashed #abb6e7', padding: '60px 0' }}
+      >
+        <ImageUploadForm />
       </Grid>
     </Container>
   );
