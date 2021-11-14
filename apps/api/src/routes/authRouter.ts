@@ -1,10 +1,10 @@
 import { Router, Response, Request } from 'express';
 import { hasRequiredFields } from '../middlewares/hasRequiredFields';
-import { RequestWithUser } from '../types';
-import { createJwt } from '../utils/jwt';
 import passport from 'passport';
+import AuthController from '../controllers/authController';
 
 const router = Router();
+const authController = new AuthController();
 
 router.post(
   '/sign-in',
@@ -32,13 +32,7 @@ router.get(
   passport.authenticate('google', {
     failureRedirect: process.env.NX_FRONTEND_URL + '/auth/failure',
   }),
-  (req: RequestWithUser, res: Response) => {
-    const jwt = createJwt(req.user._id);
-
-    return res.redirect(
-      process.env.NX_FRONTEND_URL + `/auth/success?token=${jwt}`
-    );
-  }
+  authController.googleCallback
 );
 
 export default router;
