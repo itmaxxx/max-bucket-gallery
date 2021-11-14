@@ -18,7 +18,7 @@ const DashboardPage = () => {
   }, [user]);
 
   return (
-    <Container component="main" maxWidth="lg" sx={{ mt: 3 }}>
+    <Container component="main" maxWidth="lg" sx={{ mt: 4 }}>
       <Grid item xs={12}>
         <Typography variant="h4">Dashboard</Typography>
       </Grid>
@@ -30,7 +30,7 @@ const DashboardPage = () => {
       >
         <ImageUploadForm />
       </Grid>
-      <Grid item sx={{mt: 3}} xs={12}>
+      <Grid item sx={{mt: 4}} xs={12}>
         <Images />
       </Grid>
     </Container>

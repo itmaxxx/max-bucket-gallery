@@ -10,7 +10,7 @@ export class Image {
   })
   public _id?: Types.ObjectId;
 
-  @prop({ ref: () => User })
+  @prop({ type: User, ref: () => User })
   public user: Ref<User>;
 
   @prop({ type: String })
