@@ -35,7 +35,7 @@ const ImageUploadForm = () => {
       </Backdrop>
       <Button variant="text" component="label" fullWidth disableElevation>
         <CloudUploadIcon color="inherit" sx={{ fontSize: 100 }} />
-        <span style={{ marginLeft: '8px' }}>Select image</span>
+        <span style={{ marginLeft: '16px' }}>Select image</span>
         <input type="file" name="image" hidden required />
       </Button>
       <Button
