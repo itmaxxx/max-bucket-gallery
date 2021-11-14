@@ -2,7 +2,7 @@ import { ImagesAction, ImagesState } from '../types';
 import { IMAGES_FETCH, IMAGES_FETCH_FAIL, IMAGES_FETCH_SUCCESS } from '../types/images';
 
 const initialState: ImagesState = {
-  images: null,
+  images: [],
   loading: false
 }
 
@@ -15,14 +15,14 @@ export const imagesReducer = (
       return {
         ...state,
         loading: true,
-        images: null
+        images: []
       }
       break;
     case IMAGES_FETCH_SUCCESS: {
       return {
         ...state,
         loading: false,
-        images: action.payload?.images || null
+        images: action.payload?.images || []
       }
       break;
     }
@@ -30,7 +30,7 @@ export const imagesReducer = (
       return {
         ...state,
         loading: false,
-        images: null
+        images: []
       }
       break;
     default:

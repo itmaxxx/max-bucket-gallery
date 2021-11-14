@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
 import { User } from '@max-bucket-gallery/api-interfaces';
 import { getUserImages } from '../../store/actions/images';
+import Images from '../../components/Images/Images';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (user?._id) {
-      dispatch(getUserImages(user._id.toString()));
+      dispatch(getUserImages(user._id));
     }
   }, [user]);
 
@@ -28,6 +29,9 @@ const DashboardPage = () => {
         sx={{ mt: 3, border: '5px dashed #abb6e7', padding: '60px 0' }}
       >
         <ImageUploadForm />
+      </Grid>
+      <Grid item sx={{mt: 3}} xs={12}>
+        <Images />
       </Grid>
     </Container>
   );

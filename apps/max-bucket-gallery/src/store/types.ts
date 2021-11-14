@@ -2,6 +2,7 @@ import { Image, User } from '@max-bucket-gallery/api-interfaces';
 
 export interface RootState {
   user: UserState;
+  images: ImagesState;
 }
 
 // User state
@@ -21,7 +22,7 @@ export type UserDispatch = (dispatch: UserAction) => UserAction;
 // Images state
 
 export interface ImagesState {
-  images: Image[] | null;
+  images: Image[];
   loading: boolean;
 }
 

@@ -1,8 +1,13 @@
 import { Backdrop, Box, Button, CircularProgress } from '@mui/material';
 import React, { useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { getUserImages } from '../../store/actions/images';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/types';
 
 const ImageUploadForm = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((root: RootState) => root.user.user);
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string>('');
 
@@ -23,6 +28,10 @@ const ImageUploadForm = () => {
 
     setOpen(false);
     setSelectedImage('');
+
+    if (user?._id) {
+      dispatch(getUserImages(user._id));
+    }
 
     console.log(result);
   };
@@ -59,7 +68,7 @@ const ImageUploadForm = () => {
           onClick={() => setSelectedImage('')}
         />
       ) : (
-        <Button variant="text" component="label" fullWidth disableElevation>
+        <Button variant="text" component="label" sx={{padding: '0 16px'}} fullWidth disableElevation>
           <CloudUploadIcon color="inherit" sx={{ fontSize: 100 }} />
           <span style={{ marginLeft: '16px' }}>Select image</span>
           <input

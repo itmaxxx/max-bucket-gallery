@@ -5,10 +5,11 @@ import {
   IMAGES_FETCH_FAIL,
   IMAGES_FETCH_SUCCESS,
 } from '../types/images';
+import { Types } from 'mongoose';
 
 const BACKEND_URL = process.env.NX_BACKEND_URL;
 
-export const getUserImages = (userId: string) => {
+export const getUserImages = (userId: Types.ObjectId) => {
   return async (dispatch: ImagesDispatch) => {
     try {
       dispatch({
