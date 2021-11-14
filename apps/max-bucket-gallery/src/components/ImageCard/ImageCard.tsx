@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { MouseEvent, useState } from 'react';
 import {
   Avatar,
   Card,
   CardActions,
   CardHeader,
   CardMedia,
-  IconButton,
+  IconButton, Menu, MenuItem
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -17,8 +17,36 @@ export interface ImageCardProps {
 }
 
 const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Card>
+      <Menu
+        id={`image-menu-${image._id}`}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Delete</MenuItem>
+      </Menu>
       <CardHeader
         avatar={
           <Avatar
@@ -33,7 +61,7 @@ const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" onClick={handleClick}>
             <MoreVertIcon />
           </IconButton>
         }
