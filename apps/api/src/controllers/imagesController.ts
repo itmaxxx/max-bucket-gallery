@@ -12,8 +12,6 @@ class ImagesController {
 
   public uploadImage = async (req: RequestWithUserAndFiles, res: Response) => {
     try {
-      console.log('Upload image', req.user, req.files);
-
       if (!req.files?.image) {
         return res.status(400).json({ message: 'Please, send image file' });
       }
@@ -36,8 +34,6 @@ class ImagesController {
         headers: uploadImageFormData.getHeaders(),
       });
       const uploadedImage: ApiImageUploadResponse = response.data;
-
-      console.log('Image upload result', { data: uploadedImage });
 
       const newImage: Image = {
         _id: new Types.ObjectId(),
