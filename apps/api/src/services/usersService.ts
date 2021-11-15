@@ -2,7 +2,12 @@ import { UserModel } from '../models';
 import { User } from '@max-bucket-gallery/api-interfaces';
 import { Types } from 'mongoose';
 
-class UsersService {
+export interface IUsersService {
+  findUserById(id: Types.ObjectId);
+  addUser(user: User);
+}
+
+class UsersService implements IUsersService {
   userModel = UserModel;
 
   public async findUserById(id: Types.ObjectId) {
