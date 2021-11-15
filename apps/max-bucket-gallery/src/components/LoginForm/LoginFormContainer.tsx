@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Button, Divider, Grid, Link, TextField } from '@mui/material';
-import Google from '../../assets/images/icons/social-google.svg';
+import { Box, Button, Divider, Grid } from '@mui/material';
 import LoginForm from './LoginForm';
+import SignInWithGoogle from '../Buttons/SignInWithGoogle';
 
 const LoginFormContainer = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,7 +18,7 @@ const LoginFormContainer = () => {
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
       <LoginForm />
       <Grid item xs={12}>
-        <Button type="submit" fullWidth disableElevation variant="text">
+        <Button fullWidth disableElevation variant="text">
           Don't have an account? Sign Up
         </Button>
         <Divider
@@ -32,33 +32,7 @@ const LoginFormContainer = () => {
         >
           Or
         </Divider>
-        <Link
-          href={process.env.NX_BACKEND_URL + '/api/auth/google'}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button
-            disableElevation
-            fullWidth
-            size="large"
-            variant="outlined"
-            sx={{
-              color: 'grey.700',
-              backgroundColor: (theme) => theme.palette.grey[50],
-              borderColor: (theme) => theme.palette.grey[100],
-              mb: '10px',
-            }}
-          >
-            <Box
-              sx={{
-                mr: { xs: 1, sm: 2, width: 20 },
-                display: 'flex',
-              }}
-            >
-              <img src={Google} alt="Google" width={16} height={16} />
-            </Box>
-            Sign in with Google
-          </Button>
-        </Link>
+        <SignInWithGoogle />
       </Grid>
     </Box>
   );

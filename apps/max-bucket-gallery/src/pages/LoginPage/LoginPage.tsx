@@ -1,17 +1,13 @@
 import {
   Avatar,
   Box,
-  Button,
-  Divider,
   Grid,
-  Link,
   Paper,
   Typography,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LoginFormContainer from '../../components/LoginForm/LoginFormContainer';
 import Copyright from '../../components/Copyright/Copyright';
-import Google from '../../assets/images/icons/social-google.svg';
 
 const LoginPage = () => {
   return (
