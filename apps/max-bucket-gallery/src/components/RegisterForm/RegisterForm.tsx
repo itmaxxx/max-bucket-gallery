@@ -40,7 +40,7 @@ const RegisterForm = () => {
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
-        Sign up
+        Register
       </Button>
     </>
   );

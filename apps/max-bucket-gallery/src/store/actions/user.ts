@@ -14,73 +14,83 @@ const BACKEND_URL = process.env.NX_BACKEND_URL;
 
 export function userLogin(email: string, password: string) {
   return async (dispatch: UserDispatch) => {
-    const result = await request(BACKEND_URL + '/api/auth/sign-in', 'POST', {
-      email,
-      password,
-    });
-
-    if (result.error) {
-      dispatch({
-        type: USER_LOGIN_FAIL,
+    try {
+      const result = await request(BACKEND_URL + '/api/auth/sign-in', 'POST', {
+        email,
+        password,
       });
 
-      return;
-    }
+      if (result.error || !result.jwt) {
+        throw new Error(result.error || result.message);
 
-    const resultUserInfo = await request(
-      BACKEND_URL + '/api/users/me',
-      'GET',
-      null,
-      {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${result.jwt}`,
+        return;
       }
-    );
 
-    if (resultUserInfo.error) {
+      const resultUserInfo = await request(
+        BACKEND_URL + '/api/users/me',
+        'GET',
+        null,
+        {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${result.jwt}`,
+        }
+      );
+
+      if (resultUserInfo.error) {
+        throw new Error(result.error || result.message);
+
+        return;
+      }
+
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: {
+          user: {
+            _id: resultUserInfo._id,
+            email: resultUserInfo.email,
+            fullName: resultUserInfo.fullName,
+          },
+        },
+      });
+
+      localStorage.setItem('token', result.jwt);
+    } catch (error) {
+      console.log(error);
+
+      alert(error.message);
+
       dispatch({
         type: USER_LOGIN_FAIL,
       });
-
-      return;
     }
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: {
-        user: {
-          _id: resultUserInfo._id,
-          email: resultUserInfo.email,
-          fullName: resultUserInfo.fullName,
-        },
-      },
-    });
-
-    localStorage.setItem('token', result.jwt);
   };
 }
 
 export function userLoginWithJwt(jwt: string) {
   return async (dispatch: UserDispatch) => {
-    const resultUserInfo = await request(
-      BACKEND_URL + '/api/users/me',
-      'GET',
-      null,
-      {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwt}`,
+    try {
+      const resultUserInfo = await request(
+        BACKEND_URL + '/api/users/me',
+        'GET',
+        null,
+        {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        }
+      );
+
+      if (resultUserInfo) {
+        localStorage.setItem('token', jwt);
+
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: {
+            user: { ...resultUserInfo },
+          },
+        });
       }
-    );
-
-    if (resultUserInfo) {
-      localStorage.setItem('token', jwt);
-
-      dispatch({
-        type: USER_LOGIN_SUCCESS,
-        payload: {
-          user: { ...resultUserInfo },
-        },
-      });
+    } catch (error) {
+      console.log(error);
     }
   };
 }
@@ -91,49 +101,52 @@ export function userRegister(
   password: string
 ) {
   return async (dispatch: UserDispatch) => {
-    const result = await request(BACKEND_URL + '/api/auth/sign-up', 'POST', {
-      fullName,
-      email,
-      password,
-    });
-
-    if (result.error) {
-      dispatch({
-        type: USER_REGISTER_FAIL,
+    try {
+      const result = await request(BACKEND_URL + '/api/auth/sign-up', 'POST', {
+        fullName,
+        email,
+        password,
       });
 
-      return;
-    }
-
-    const resultUserInfo = await request(
-      BACKEND_URL + '/api/users/me',
-      'GET',
-      null,
-      {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${result.jwt}`,
+      if (result.error || !result.jwt) {
+        throw new Error(result.error || result.message);
       }
-    );
 
-    if (resultUserInfo.error) {
+      const resultUserInfo = await request(
+        BACKEND_URL + '/api/users/me',
+        'GET',
+        null,
+        {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${result.jwt}`,
+        }
+      );
+
+      if (resultUserInfo.error) {
+        dispatch({
+          type: USER_REGISTER_FAIL,
+        });
+
+        return;
+      }
+
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: {
+          user: { ...resultUserInfo },
+        },
+      });
+
+      localStorage.setItem('token', JSON.stringify(result.jwt));
+    } catch (error) {
+      console.log(error);
+
+      alert(error.message);
+
       dispatch({
         type: USER_REGISTER_FAIL,
       });
-
-      return;
     }
-
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: {
-        user: {
-          email: resultUserInfo.email,
-          fullName: resultUserInfo.fullName,
-        },
-      },
-    });
-
-    localStorage.setItem('token', JSON.stringify(result.jwt));
   };
 }
 

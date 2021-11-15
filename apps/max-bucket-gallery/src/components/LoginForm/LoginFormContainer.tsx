@@ -1,23 +1,38 @@
 import React from 'react';
 import { Box, Button, Divider, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignInWithGoogle from '../Buttons/SignInWithGoogle';
+import { userLogin } from '../../store/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/types';
 
 const LoginFormContainer = () => {
+  const dispatch = useDispatch();
+  const loggedIn: boolean = useSelector((state: RootState) => {
+    return state.user.loggedIn || false;
+  });
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const form = new FormData(event.currentTarget);
+    const data = {
+      email: form.get('email')?.toString() || '',
+      password: form.get('password')?.toString() || '',
+    };
+
+    dispatch(userLogin(data.email, data.password));
   };
 
   return (
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-      <LoginForm />
+      {loggedIn && <Navigate to="/dashboard" />}
+      <Grid
+        item
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        <LoginForm />
+      </Grid>
       <Grid item xs={12}>
         <Link to={'/auth/sign-up'} style={{ textDecoration: 'none' }}>
           <Button fullWidth disableElevation variant="text">

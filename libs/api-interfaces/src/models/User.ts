@@ -27,7 +27,7 @@ export class User {
   public email!: string;
 
   @prop({ type: String, select: false })
-  public hashedPassword?: string;
+  public password?: string;
 
   @prop({
     maxlength: 256,

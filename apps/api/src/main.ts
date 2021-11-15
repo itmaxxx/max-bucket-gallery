@@ -36,7 +36,7 @@ app.use(passport.initialize());
 setUpGoogleStrategy();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(formidableMiddleware());
+app.use('/api/images', formidableMiddleware());
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/images', imagesRouter);

@@ -223,7 +223,7 @@ const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
               size="small"
             >
               <MenuItem value="jpg">JPG</MenuItem>
-              <MenuItem value="jpef">JPEF</MenuItem>
+              <MenuItem value="jpeg">JPEG</MenuItem>
               <MenuItem value="png">PNG</MenuItem>
               <MenuItem value="webp">WEBp</MenuItem>
             </Select>
