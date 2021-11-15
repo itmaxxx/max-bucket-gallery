@@ -7,6 +7,7 @@ import { RootState } from './store/types';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import { userLoginWithJwt } from './store/actions/user';
 import { Typography } from '@mui/material';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export const App = () => {
           element={<Typography>Failed to login</Typography>}
         />
         <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/auth/sign-up" element={<LoginPage />} />
+        <Route path="/auth/sign-up" element={<RegisterPage />} />
         <Route path="*" element={<Navigate to="/auth/login" />} />
       </Routes>
     );

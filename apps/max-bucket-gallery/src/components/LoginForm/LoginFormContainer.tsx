@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Button, Divider, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignInWithGoogle from '../Buttons/SignInWithGoogle';
 
@@ -18,9 +19,11 @@ const LoginFormContainer = () => {
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
       <LoginForm />
       <Grid item xs={12}>
-        <Button fullWidth disableElevation variant="text">
-          Don't have an account? Sign Up
-        </Button>
+        <Link to={'/auth/sign-up'} style={{ textDecoration: 'none' }}>
+          <Button fullWidth disableElevation variant="text">
+            Don't have an account? Register
+          </Button>
+        </Link>
         <Divider
           orientation="horizontal"
           sx={{
