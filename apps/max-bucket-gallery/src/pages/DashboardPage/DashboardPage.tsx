@@ -6,6 +6,7 @@ import { RootState } from '../../store/types';
 import { User } from '@max-bucket-gallery/api-interfaces';
 import { getUserImages } from '../../store/actions/images';
 import Images from '../../components/Images/Images';
+import Copyright from '../../components/Copyright/Copyright';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const DashboardPage = () => {
       <Grid item sx={{mt: 4}} xs={12}>
         <Images />
       </Grid>
+      <Copyright sx={{mt: 5}}/>
     </Container>
   );
 };

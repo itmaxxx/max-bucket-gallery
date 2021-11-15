@@ -1,9 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { getUserImages } from '../../store/actions/images';
-import { ImageList, ImageListItem } from '@mui/material';
+import {
+  Avatar, Card, CardActions,
+  CardHeader, CardMedia,
+  Grid,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  Menu,
+  MenuItem,
+  Skeleton,
+  Stack
+} from '@mui/material';
 import ImageCard from '../ImageCard/ImageCard';
+import { Types } from 'mongoose';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Images = () => {
   const dispatch = useDispatch();
@@ -14,6 +28,41 @@ const Images = () => {
       dispatch(getUserImages(user.user._id));
     }
   }, [user]);
+
+  if (images?.loading) {
+    return (
+      <ImageList variant="masonry" cols={3} gap={16}>
+        {[0, 0, 0, 0, 0, 0].map((item, index) => (
+          <ImageListItem key={index}>
+            <Card>
+              <CardHeader
+                avatar={
+                  <Skeleton variant="circular" width={40} height={40} />
+                }
+                title={<Skeleton variant="text" />}
+                subheader={<Skeleton variant="text" />}
+              />
+              <Skeleton variant="rectangular" width={370} height={400} />
+              <CardActions disableSpacing>
+                <Skeleton variant="rectangular" width="40%" height={26} />
+              </CardActions>
+            </Card>
+          </ImageListItem>
+        ))}
+      </ImageList>
+    );
+  }
+
+  if (images?.images.length === 0) {
+    return (
+      <Grid
+        component="div"
+        sx={{ textAlign: 'center', color: 'gray', fontSize: 18 }}
+      >
+        No images to display...
+      </Grid>
+    );
+  }
 
   return (
     <ImageList variant="masonry" cols={3} gap={16}>
