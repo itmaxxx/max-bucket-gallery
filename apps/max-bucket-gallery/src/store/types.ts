@@ -1,4 +1,5 @@
 import { Image, User } from '@max-bucket-gallery/api-interfaces';
+import { Types } from 'mongoose';
 
 export interface RootState {
   user: UserState;
@@ -23,6 +24,7 @@ export type UserDispatch = (dispatch: UserAction) => UserAction;
 
 export interface ImagesState {
   images: Image[];
+  image?: Types.ObjectId;
   loading: boolean;
 }
 

@@ -57,7 +57,7 @@ const Images = () => {
   }
 
   return (
-    <ImageList variant="masonry" cols={3} gap={16}>
+    <ImageList cols={3} gap={16}>
       {images?.images &&
         images.images.map((image) => (
           <ImageListItem key={image?._id?.toString()}>

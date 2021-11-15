@@ -73,6 +73,9 @@ export const deleteImageById = (imageId: Types.ObjectId) => {
       if (result) {
         return dispatch({
           type: IMAGES_DELETE_SUCCESS,
+          payload: {
+            image: imageId,
+          },
         });
       }
 
