@@ -1,5 +1,11 @@
 import { ImagesAction, ImagesState } from '../types';
-import { IMAGES_FETCH, IMAGES_FETCH_FAIL, IMAGES_FETCH_SUCCESS } from '../types/images';
+import {
+  IMAGES_DELETE, IMAGES_DELETE_FAIL,
+  IMAGES_DELETE_SUCCESS,
+  IMAGES_FETCH,
+  IMAGES_FETCH_FAIL,
+  IMAGES_FETCH_SUCCESS
+} from '../types/images';
 
 const initialState: ImagesState = {
   images: [],
@@ -32,6 +38,11 @@ export const imagesReducer = (
         loading: false,
         images: []
       }
+      break;
+    case IMAGES_DELETE:
+    case IMAGES_DELETE_SUCCESS:
+    case IMAGES_DELETE_FAIL:
+      return state;
       break;
     default:
       return state;

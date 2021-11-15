@@ -27,6 +27,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Image } from '@max-bucket-gallery/api-interfaces';
 import { Types } from 'mongoose';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteImageById } from '../../store/actions/images';
+import { RootState } from '../../store/types';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -48,9 +51,11 @@ export interface ImageCardProps {
 }
 
 const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
+  const user = useSelector((root: RootState) => root.user?.user);
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [resize, setResize] = useState('cover');
+  const [resize, setResize] = useState('inside');
   const [extension, setExtension] = useState('jpg');
   const [width, setWidth] = useState(400);
   const [height, setHeight] = useState(400);
@@ -114,6 +119,14 @@ const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
     });
   };
 
+  const handleDelete = async () => {
+    if (image?._id && user?._id) {
+      dispatch(deleteImageById(image._id));
+    }
+
+    handleClose();
+  };
+
   return (
     <Card>
       <Menu
@@ -133,7 +146,7 @@ const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
           horizontal: 'right',
         }}
       >
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem onClick={handleDelete}>Delete</MenuItem>
       </Menu>
       <CardHeader
         avatar={
