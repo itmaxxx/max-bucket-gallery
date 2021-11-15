@@ -10,13 +10,13 @@ export const isAuthorized = async (
 ) => {
   try {
     if (!req.headers.authorization)
-      return res.status(403).json({ error: 'Not authenticated' });
+      return res.status(401).json({ error: 'Not authenticated' });
 
     const token = req.headers.authorization.split(' ')[1];
 
     await verifyJwt(token).then(async (result) => {
       if (result?.error)
-        return res.status(403).json({ error: 'Bad authorization token' });
+        return res.status(401).json({ error: 'Bad authorization token' });
 
       req.user = await UserModel.findById(result.userId);
 
