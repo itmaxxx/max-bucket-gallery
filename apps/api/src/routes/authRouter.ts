@@ -1,4 +1,4 @@
-import { Router, Response, Request } from 'express';
+import { Router } from 'express';
 import { hasRequiredFields } from '../middlewares/hasRequiredFields';
 import passport from 'passport';
 import AuthController from '../controllers/authController';
@@ -9,17 +9,13 @@ const authController = new AuthController();
 router.post(
   '/sign-in',
   hasRequiredFields(['email', 'password']),
-  async (req: Request, res: Response) => {
-    // await signIn(req, res);
-  }
+  authController.signIn
 );
 
 router.post(
   '/sign-up',
   hasRequiredFields(['fullName', 'email', 'password']),
-  async (req: Request, res: Response) => {
-    // await signUp(req, res);
-  }
+  authController.signUp
 );
 
 router.get(
