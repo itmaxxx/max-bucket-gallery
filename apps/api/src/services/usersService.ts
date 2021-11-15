@@ -6,6 +6,7 @@ export interface IUsersService {
   findUserById(id: Types.ObjectId);
   addUser(user: User);
   findUserByEmail(email: string);
+  findUserByEmailWithPassword(email: string);
 }
 
 class UsersService implements IUsersService {
@@ -13,6 +14,10 @@ class UsersService implements IUsersService {
 
   public async findUserByEmail(email: string) {
     return this.userModel.findOne({ email });
+  }
+
+  public async findUserByEmailWithPassword(email: string) {
+    return this.userModel.findOne({ email }).select('+password').exec();
   }
 
   public async findUserById(id: Types.ObjectId) {

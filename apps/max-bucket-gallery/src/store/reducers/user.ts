@@ -36,7 +36,8 @@ export const userReducer = (
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        loggedIn: false,
+        loggedIn: true,
+        user: action.payload?.user || null,
       };
     case USER_REGISTER_FAIL:
       return {

@@ -57,7 +57,7 @@ const NavBar = () => {
                     fontWeight: 500,
                   }}
                 >
-                  {user?.user?.fullName}
+                  {user?.user?.fullName || user?.user?.email}
                 </Typography>
                 <Avatar
                   alt={user?.user?.fullName || 'User'}

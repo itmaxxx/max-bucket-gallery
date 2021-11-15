@@ -26,6 +26,6 @@ export const isAuthorized = async (
     });
   } catch (err) {
     console.log(err);
-    return res.status(400).json({ error: err.message });
+    return res.status(401).json({ error: err.message || 'Authorization required' });
   }
 };

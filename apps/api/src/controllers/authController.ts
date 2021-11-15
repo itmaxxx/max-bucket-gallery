@@ -62,11 +62,13 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const userWithEmail = await this.usersService.findUserByEmail(email);
+      const userWithEmail = await this.usersService.findUserByEmailWithPassword(email);
 
       if (!userWithEmail) {
         return res.status(400).json({ message: 'Email not found' });
       }
+
+      console.log(userWithEmail);
 
       if (!userWithEmail.password) {
         return res.status(400).json({ message: 'Failed to login. User registered using app' });

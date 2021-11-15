@@ -14,6 +14,7 @@ export const verifyJwt = async (
   token: string
 ): Promise<{ error?: string; userId?: string }> => {
   if (!token) return { error: 'Invalid token' };
+
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       err ? reject({ error: 'Failed to verify jwt' }) : resolve(decodedToken);

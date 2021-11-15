@@ -79,18 +79,32 @@ export function userLoginWithJwt(jwt: string) {
         }
       );
 
-      if (resultUserInfo) {
-        localStorage.setItem('token', jwt);
+      if (resultUserInfo.error) {
+        localStorage.removeItem('token');
 
+        dispatch({
+          type: USER_LOGOUT,
+        });
+
+        return;
+      }
+
+      if (resultUserInfo) {
         dispatch({
           type: USER_LOGIN_SUCCESS,
           payload: {
             user: { ...resultUserInfo },
           },
         });
+
+        return;
       }
+
+      throw new Error('Failed to restore session');
     } catch (error) {
       console.log(error);
+
+      alert(error.message);
     }
   };
 }
@@ -137,7 +151,7 @@ export function userRegister(
         },
       });
 
-      localStorage.setItem('token', JSON.stringify(result.jwt));
+      localStorage.setItem('token', result.jwt);
     } catch (error) {
       console.log(error);
 
