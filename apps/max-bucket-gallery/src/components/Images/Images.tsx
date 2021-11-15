@@ -3,21 +3,15 @@ import { RootState } from '../../store/types';
 import React, { useEffect } from 'react';
 import { getUserImages } from '../../store/actions/images';
 import {
-  Avatar, Card, CardActions,
-  CardHeader, CardMedia,
+  Card,
+  CardActions,
+  CardHeader,
   Grid,
-  IconButton,
   ImageList,
   ImageListItem,
-  Menu,
-  MenuItem,
   Skeleton,
-  Stack
 } from '@mui/material';
 import ImageCard from '../ImageCard/ImageCard';
-import { Types } from 'mongoose';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Images = () => {
   const dispatch = useDispatch();
@@ -36,9 +30,7 @@ const Images = () => {
           <ImageListItem key={index}>
             <Card>
               <CardHeader
-                avatar={
-                  <Skeleton variant="circular" width={40} height={40} />
-                }
+                avatar={<Skeleton variant="circular" width={40} height={40} />}
                 title={<Skeleton variant="text" />}
                 subheader={<Skeleton variant="text" />}
               />

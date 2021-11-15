@@ -36,7 +36,7 @@ const NavBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" elevation={0}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Max Bucket Gallery
@@ -48,9 +48,17 @@ const NavBar = () => {
                 disableElevation
                 onClick={handleClick}
               >
-                <span style={{ marginRight: '8px', marginTop: '2px' }}>
+                <Typography
+                  component="span"
+                  style={{
+                    marginRight: '8px',
+                    marginTop: '2px',
+                    fontSize: 15,
+                    fontWeight: 500,
+                  }}
+                >
                   {user?.user?.fullName}
-                </span>
+                </Typography>
                 <Avatar
                   alt={user?.user?.fullName || 'User'}
                   src={user?.user?.profilePicture}

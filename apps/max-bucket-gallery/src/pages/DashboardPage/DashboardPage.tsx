@@ -34,7 +34,7 @@ const DashboardPage = () => {
       <Grid item sx={{mt: 4}} xs={12}>
         <Images />
       </Grid>
-      <Copyright sx={{mt: 5}}/>
+      <Copyright sx={{mt: 5, mb: 5}}/>
     </Container>
   );
 };
