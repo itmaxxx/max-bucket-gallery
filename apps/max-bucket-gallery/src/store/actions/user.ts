@@ -90,6 +90,8 @@ export function userLoginWithJwt(jwt: string) {
       }
 
       if (resultUserInfo) {
+        localStorage.setItem('token', jwt);
+
         dispatch({
           type: USER_LOGIN_SUCCESS,
           payload: {
