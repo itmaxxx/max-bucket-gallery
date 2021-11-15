@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { getUserImages } from '../../store/actions/images';
 import {
   Card,
@@ -17,7 +17,7 @@ const Images = () => {
   const dispatch = useDispatch();
   const { user, images } = useSelector((root: RootState) => root);
 
-  useEffect(() => {
+  useMemo(() => {
     if (user?.user?._id) {
       dispatch(getUserImages(user.user._id));
     }
