@@ -9,6 +9,7 @@ import {
   IMAGES_FETCH_SUCCESS,
 } from '../types/images';
 import { Types } from 'mongoose';
+import { Image } from '@max-bucket-gallery/api-interfaces';
 
 const BACKEND_URL = process.env.NX_BACKEND_URL;
 
@@ -21,7 +22,7 @@ export const getUserImages = (userId: Types.ObjectId) => {
 
       const jwt = localStorage.getItem('token');
 
-      const result = await request(
+      const result = await request<{ data: Image[] }>(
         BACKEND_URL + '/api/images/' + userId,
         'GET',
         null,
@@ -60,7 +61,7 @@ export const deleteImageById = (imageId: Types.ObjectId) => {
 
       const jwt = localStorage.getItem('token');
 
-      const result = await request(
+      const result = await request<{ message: string }>(
         BACKEND_URL + '/api/images/' + imageId,
         'DELETE',
         null,

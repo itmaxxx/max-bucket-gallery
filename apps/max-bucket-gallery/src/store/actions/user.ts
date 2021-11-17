@@ -9,13 +9,18 @@ import {
 } from '../types/user';
 import { request } from '../../utils/request';
 import { UserDispatch } from '../types';
+import { User } from '@max-bucket-gallery/api-interfaces';
 
 const BACKEND_URL = process.env.NX_BACKEND_URL;
 
 export function userLogin(email: string, password: string) {
   return async (dispatch: UserDispatch) => {
     try {
-      const result = await request(BACKEND_URL + '/api/auth/sign-in', 'POST', {
+      const result = await request<{
+        error?: string;
+        message?: string;
+        jwt?: string;
+      }>(BACKEND_URL + '/api/auth/sign-in', 'POST', {
         email,
         password,
       });
@@ -26,7 +31,7 @@ export function userLogin(email: string, password: string) {
         return;
       }
 
-      const resultUserInfo = await request(
+      const resultUserInfo = await request<User & { error: string }>(
         BACKEND_URL + '/api/users/me',
         'GET',
         null,
@@ -69,7 +74,7 @@ export function userLogin(email: string, password: string) {
 export function userLoginWithJwt(jwt: string) {
   return async (dispatch: UserDispatch) => {
     try {
-      const resultUserInfo = await request(
+      const resultUserInfo = await request<User & { error: string }>(
         BACKEND_URL + '/api/users/me',
         'GET',
         null,
@@ -118,7 +123,11 @@ export function userRegister(
 ) {
   return async (dispatch: UserDispatch) => {
     try {
-      const result = await request(BACKEND_URL + '/api/auth/sign-up', 'POST', {
+      const result = await request<{
+        jwt?: string;
+        message?: string;
+        error?: string;
+      }>(BACKEND_URL + '/api/auth/sign-up', 'POST', {
         fullName,
         email,
         password,
@@ -128,7 +137,7 @@ export function userRegister(
         throw new Error(result.error || result.message);
       }
 
-      const resultUserInfo = await request(
+      const resultUserInfo = await request<User & { error: string }>(
         BACKEND_URL + '/api/users/me',
         'GET',
         null,
