@@ -9,7 +9,7 @@ import {
   CardMedia,
   Collapse,
   Divider,
-  FormControl, Grid,
+  FormControl,
   IconButton,
   IconButtonProps,
   InputLabel,
@@ -21,7 +21,7 @@ import {
   Slider,
   styled,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -266,9 +266,13 @@ const ImageCard: React.FunctionComponent<ImageCardProps> = ({ image }) => {
             value={outputUrl}
             fullWidth
           />
-            <Link href={outputUrl} target="_blank" sx={{ display: 'block', mt: 3, mb: 2 }}>
-              Direct link to image
-            </Link>
+          <Link
+            href={outputUrl}
+            target="_blank"
+            sx={{ display: 'block', mt: 3, mb: 2 }}
+          >
+            Direct link to image
+          </Link>
           <Button
             fullWidth
             disableElevation

@@ -68,8 +68,6 @@ class AuthController {
         return res.status(400).json({ message: 'Email not found' });
       }
 
-      console.log(userWithEmail);
-
       if (!userWithEmail.password) {
         return res.status(400).json({ message: 'Failed to login. User registered using app' });
       }
