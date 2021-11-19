@@ -13,7 +13,7 @@ const DashboardPage = () => {
         container
         alignItems="center"
         direction="column"
-        sx={{ mt: 3, border: '5px dashed #abb6e7', padding: '60px 0' }}
+        sx={{ mt: 3, border: '5px dashed #cabdff', padding: '60px 0' }}
       >
         <ImageUploadForm />
       </Grid>

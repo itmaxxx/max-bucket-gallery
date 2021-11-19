@@ -84,7 +84,6 @@ const ImageUploadForm = () => {
       <Button
         type="submit"
         fullWidth
-        disableElevation
         variant="contained"
         sx={{ mt: 1 }}
       >

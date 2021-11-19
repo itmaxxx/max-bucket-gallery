@@ -44,8 +44,9 @@ const NavBar = () => {
           {user?.loggedIn ? (
             <>
               <Button
-                variant="contained"
+                variant="text"
                 disableElevation
+                sx={{ color: '#fff' } }
                 onClick={handleClick}
               >
                 <Typography
