@@ -6,33 +6,38 @@ import { Link, Navigate } from 'react-router-dom';
 import { userRegister } from '../../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
+import { useForm } from 'react-hook-form';
+
+export interface RegisterFormValues {
+  fullName: string;
+  email: string;
+  password: string;
+}
 
 const RegisterFormContainer = () => {
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const loggedIn: boolean = useSelector((state: RootState) => {
     return state.user.loggedIn || false;
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const data = {
-      fullName: form.get('fullName')?.toString() || '',
-      email: form.get('email')?.toString() || '',
-      password: form.get('password')?.toString() || '',
-    };
-
+  const onSubmit = (data: RegisterFormValues) => {
     dispatch(userRegister(data.fullName, data.email, data.password));
   };
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+    <Box
+      component="form"
+      noValidate
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{ mt: 1 }}
+    >
       {loggedIn && <Navigate to="/dashboard" />}
       <Grid
         item
         sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <RegisterForm />
+        <RegisterForm register={register} />
       </Grid>
       <Grid item xs={12}>
         <Link to={'/auth/login'} style={{ textDecoration: 'none' }}>

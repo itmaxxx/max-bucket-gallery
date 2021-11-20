@@ -21,8 +21,6 @@ const LoginFormContainer = () => {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
-
     dispatch(userLogin(data.email, data.password));
   };
 

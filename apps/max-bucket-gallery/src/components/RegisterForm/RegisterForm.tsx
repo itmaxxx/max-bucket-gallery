@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, TextField } from '@mui/material';
+import { UseFormRegister } from 'react-hook-form';
+import { RegisterFormValues } from './RegisterFormContainer';
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  register: UseFormRegister<RegisterFormValues>;
+}
+
+const RegisterForm: FC<RegisterFormProps> = ({ register }) => {
   return (
     <>
       <TextField
@@ -10,9 +16,9 @@ const RegisterForm = () => {
         fullWidth
         id="name"
         label="Full name"
-        name="fullName"
         autoComplete="name"
         autoFocus
+        {...register('fullName')}
       />
       <TextField
         margin="normal"
@@ -20,18 +26,18 @@ const RegisterForm = () => {
         fullWidth
         id="email"
         label="Email Address"
-        name="email"
         autoComplete="email"
+        {...register('email')}
       />
       <TextField
         margin="normal"
         required
         fullWidth
-        name="password"
         label="Password"
         type="password"
         id="password"
         autoComplete="new-password"
+        {...register('password')}
       />
       <Button
         type="submit"
