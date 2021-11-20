@@ -1,11 +1,7 @@
 import React, { FC } from 'react';
 import { Button, TextField } from '@mui/material';
 import { UseFormRegister } from 'react-hook-form';
-
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
+import { LoginFormValues } from './LoginFormContainer';
 
 interface LoginFormProps {
   register: UseFormRegister<LoginFormValues>;

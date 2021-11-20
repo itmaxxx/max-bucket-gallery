@@ -8,6 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
 import { useForm } from 'react-hook-form';
 
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
 const LoginFormContainer = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
@@ -15,7 +20,7 @@ const LoginFormContainer = () => {
     return state.user.loggedIn || false;
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: LoginFormValues) => {
     console.log(data);
 
     dispatch(userLogin(data.email, data.password));
