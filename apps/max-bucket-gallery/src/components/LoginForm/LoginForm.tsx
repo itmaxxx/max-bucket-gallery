@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, TextField } from '@mui/material';
+import { UseFormRegister } from 'react-hook-form';
 
-const LoginForm = () => {
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+interface LoginFormProps {
+  register: UseFormRegister<LoginFormValues>;
+}
+
+const LoginForm: FC<LoginFormProps> = ({ register }) => {
   return (
     <>
       <TextField
         margin="normal"
-        required
         fullWidth
         id="email"
         label="Email Address"
-        name="email"
         autoComplete="email"
         autoFocus
+        {...register('email')}
       />
       <TextField
         margin="normal"
-        required
         fullWidth
-        name="password"
         label="Password"
         type="password"
         id="password"
         autoComplete="current-password"
+        {...register('password')}
       />
       <Button
         type="submit"

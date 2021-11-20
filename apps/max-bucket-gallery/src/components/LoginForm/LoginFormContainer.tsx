@@ -6,32 +6,34 @@ import SignInWithGoogle from '../Buttons/SignInWithGoogle';
 import { userLogin } from '../../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
+import { useForm } from 'react-hook-form';
 
 const LoginFormContainer = () => {
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const loggedIn: boolean = useSelector((state: RootState) => {
     return state.user.loggedIn || false;
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const data = {
-      email: form.get('email')?.toString() || '',
-      password: form.get('password')?.toString() || '',
-    };
+  const onSubmit = (data: any) => {
+    console.log(data);
 
     dispatch(userLogin(data.email, data.password));
   };
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+    <Box
+      component="form"
+      noValidate
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{ mt: 1 }}
+    >
       {loggedIn && <Navigate to="/dashboard" />}
       <Grid
         item
         sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <LoginForm />
+        <LoginForm register={register} />
       </Grid>
       <Grid item xs={12}>
         <Link to={'/auth/sign-up'} style={{ textDecoration: 'none' }}>
