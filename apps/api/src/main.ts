@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
 import authRouter from './routes/authRouter';
 import userRouter from './routes/userRouter';
 import imagesRouter from './routes/imagesRouter';
@@ -22,6 +24,24 @@ try {
   console.error(err);
 }
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Max Bucket Gallery API',
+      version: '1.0.0',
+      description: 'Simple gallery using image-serving-api',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3333',
+      },
+    ],
+  },
+  apis: ['./routes/*.ts'],
+};
+const apiDocs = swaggerJsDoc(options);
+
 const app = express();
 app.use(
   cors({
@@ -35,6 +55,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/images', formidableMiddleware());
 
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(apiDocs));
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/images', imagesRouter);
