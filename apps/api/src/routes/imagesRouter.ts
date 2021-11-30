@@ -50,6 +50,30 @@ const router = Router();
 const imagesController = new ImagesController();
 const imagesService = new ImagesService();
 
+/**
+ * @swagger
+ * /api/images:
+ *   post:
+ *     summary: Upload image
+ *     tags: [Images]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *           encoding:
+ *             image:
+ *               contentType: image/png, image/jpeg, image/webp
+ *
+ *     responses:
+ *       401:
+ *         description: User not authorized
+ */
 router.post('/', isAuthorized, imagesController.uploadImage);
 
 router.get('/:userId', isAuthorized, imagesController.getUserImages);
