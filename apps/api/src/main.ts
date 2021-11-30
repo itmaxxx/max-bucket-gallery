@@ -38,7 +38,11 @@ const options = {
       },
     ],
   },
-  apis: ['./routes/*.ts'],
+  host: 'http://localhost:3333',
+  basePath: '/api',
+  consumes: ['application/json'],
+  produces: ['application/json'],
+  apis: [`${__dirname}/main.js`],
 };
 const apiDocs = swaggerJsDoc(options);
 
