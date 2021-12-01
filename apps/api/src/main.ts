@@ -24,6 +24,17 @@ try {
   console.error(err);
 }
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
+ */
+
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -35,6 +46,7 @@ const options = {
     servers: [
       {
         url: 'http://localhost:3333',
+        description: 'Local development server',
       },
     ],
   },
