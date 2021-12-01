@@ -69,8 +69,32 @@ const imagesService = new ImagesService();
  *           encoding:
  *             image:
  *               contentType: image/png, image/jpeg, image/webp
+ *     security:
+ *       - bearerAuth: []
  *
  *     responses:
+ *       200:
+ *         description: Image successfully uploaded
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Result message
+ *                 link:
+ *                   type: string
+ *                   description: Link to uploaded image
+ *                 id:
+ *                   type: string
+ *                   description: Uploaded image id
+ *             example:
+ *               message: Image uploaded
+ *               link: http://localhost:3000/uploads/61a72c8e0a5742fad6513e27.jpg
+ *               id: 61a72c8e2bae4ae28e40fa8e
+ *       400:
+ *         description: Failed to upload image
  *       401:
  *         description: User not authorized
  */
