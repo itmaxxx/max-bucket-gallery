@@ -1,5 +1,6 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
@@ -65,15 +66,16 @@ app.use(
     credentials: true,
   })
 );
+app.use(helmet());
 app.use(passport.initialize());
 setUpGoogleStrategy();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/images', formidableMiddleware());
 
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(apiDocs));
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/images', formidableMiddleware());
 app.use('/api/images', imagesRouter);
 
 const port = process.env.port || 3333;
