@@ -24,7 +24,7 @@ import ImagesService from '../services/imagesService';
  *          description: Image id in image-serving-api
  *        originalImage:
  *          type: string
- *          description: Full url to original image with extension
+ *          description: Direct link to uploaded image on image hosting
  *        createdAt:
  *          type: date
  *          description: Date when image was uploaded
@@ -85,7 +85,7 @@ const imagesService = new ImagesService();
  *                   description: Result message
  *                 link:
  *                   type: string
- *                   description: Link to uploaded image
+ *                   description: Direct link to uploaded image on image hosting
  *                 id:
  *                   type: string
  *                   description: Uploaded image id
