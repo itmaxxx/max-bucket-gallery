@@ -100,8 +100,11 @@ const imagesService = new ImagesService();
  */
 router.post('/', isAuthorized, imagesController.uploadImage);
 
-router.get('/:userId', isAuthorized, imagesController.getUserImages);
-
-router.delete('/:imageId', isAuthorized, hasPermissionToImage(imagesService), imagesController.deleteImageById);
+router.delete(
+  '/:imageId',
+  isAuthorized,
+  hasPermissionToImage(imagesService),
+  imagesController.deleteImageById
+);
 
 export default router;

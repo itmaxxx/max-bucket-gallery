@@ -7,4 +7,6 @@ const usersController = new UsersController();
 
 router.get('/me', isAuthorized, usersController.getCurrentUser);
 
+router.get('/:userId/images', isAuthorized, usersController.getUserImages);
+
 export default router;
