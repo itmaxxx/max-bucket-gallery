@@ -27,13 +27,16 @@ const ImageUploadForm = () => {
     const result = await response.json();
 
     setOpen(false);
+
+    if (!result || result?.message === 'Failed to upload image') {
+      return alert('Failed to upload image, try again later');
+    }
+
     setSelectedImage('');
 
     if (user?._id) {
       dispatch(getUserImages(user._id));
     }
-
-    console.log(result);
   };
 
   // Not working (image not selected)
