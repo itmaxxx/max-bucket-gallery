@@ -23,7 +23,7 @@ export const getUserImages = (userId: Types.ObjectId) => {
       const jwt = localStorage.getItem('token');
 
       const result = await request<{ data: Image[] }>(
-        BACKEND_URL + '/api/images/' + userId,
+        BACKEND_URL + '/api/users/' + userId + '/images',
         'GET',
         null,
         {

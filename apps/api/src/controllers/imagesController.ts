@@ -55,28 +55,6 @@ class ImagesController {
     }
   };
 
-  public getUserImages = async (
-    req: RequestWithUserAndFiles,
-    res: Response
-  ) => {
-    try {
-      const { userId } = req.params;
-
-      if (!userId) {
-        return res.status(400).json({ message: 'Please, specify user id' });
-      }
-
-      const userImages = await this.imagesService.getUserImages(req.user._id);
-
-      return res.json({
-        data: userImages,
-      });
-    } catch (error) {
-      console.log(error.message);
-      return res.status(400).json({ message: 'Failed to get user images' });
-    }
-  };
-
   public deleteImageById = async (
     req: RequestWithUserAndFiles,
     res: Response
