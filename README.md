@@ -12,3 +12,7 @@ For storing, serving, cropping and formatting images using https://github.com/it
 3. docker-compose up -d to start mongodb
 4. npm run dev to launch app
 ```
+
+## Demonstration
+
+https://user-images.githubusercontent.com/38819868/151880315-1488b822-9ea9-4b9a-9880-be2e947493e6.mp4
